@@ -1,0 +1,30 @@
+.headerContainer {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #3f4257;
+  justify-content: space-between;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    .link {
+      text-decoration: none;
+      color: white;
+      padding: 25px 20px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      &:hover {
+        color: #ff5e3a;
+      }
+    }
+  }
+}

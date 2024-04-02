@@ -1,0 +1,19 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 14px;
+  }
+  .input {
+    height: 40px;
+    border: 1px solid #e6ecf5;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      color: #212529;
+      border-color: #ff5e3a;
+      outline: 0;
+    }
+  }
+}

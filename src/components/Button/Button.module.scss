@@ -1,0 +1,32 @@
+.button {
+  padding: 0.8rem 2.1rem;
+  font-size: 14px;
+  border-radius: 0.3rem;
+  border: 1px solid;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  &.contained {
+    background-color: #ff5e3a;
+    border-color: #ff5e3a;
+    color: #fff;
+
+    &:hover {
+      background-color: rgba(#ff5e3a, 0.8);
+      border-color: rgba(#ff5e3a, 0.8);
+    }
+  }
+
+  &.outlined {
+    background-color: #fff;
+    border-color: #9a9fbf;
+    color: #3f4257;
+    &:hover {
+        border-color: rgba(#9a9fbf, 0.8);
+        color: rgba(#3f4257, 0.8);
+    }
+  }
+}
