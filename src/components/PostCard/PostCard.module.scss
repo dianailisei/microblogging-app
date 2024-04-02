@@ -1,0 +1,17 @@
+.card {
+    padding: "20px";
+    margin-bottom: "20px";
+    position: relative;
+    .postContent{
+        margin-top: 40px
+    }
+    .lastModified{
+        font-size: 14px;
+    }
+    .addComment{
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+}

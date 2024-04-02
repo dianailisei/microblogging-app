@@ -1,17 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
-import Posts from "./pages/Posts";
+import Profile from "./pages/Posts/Profile"; 
+import { Provider } from "react-redux";
+import store from "./store";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Header />
       <Routes>
-        <Route path="/feed" element={<Posts />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
       </Routes>
-    </>
+    </Provider>
   );
 }
 
