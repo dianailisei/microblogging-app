@@ -9,6 +9,7 @@ import useContextMenu from "../../utils/useContextMenu";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import { useAppDispatch } from "../../store";
 import { deleteCommentThunk } from "../../store/slices/post/thunks";
+import Button from "../Button/Button";
 
 type CommentProps = Comment & ComponentProps<"div">;
 
@@ -35,13 +36,13 @@ function CommentCard(props: CommentProps) {
     <Card className={clsx(styles.card, className)}>
       {(loggedUserId===author.id) && (
         <>
-          <div
+          <Button variant="ghost"
             ref={refs.setReference}
             {...getReferenceProps()}
-            className={styles.moreOptions}
+           className={styles.moreOptions}
           >
             ⚙️
-          </div>
+          </Button>
           {isOpen && (
             <ContextMenu
               style={floatingStyles}

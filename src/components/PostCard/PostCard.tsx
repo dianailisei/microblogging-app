@@ -71,13 +71,13 @@ function PostCard(props: PostCardProps) {
     <Card className={clsx(styles.card, className)}>
       {isLoggedUser && (
         <>
-          <div
+          <Button variant="ghost"
             ref={refs.setReference}
             {...getReferenceProps()}
-            className={styles.moreOptions}
+           className={styles.moreOptions}
           >
             ⚙️
-          </div>
+          </Button>
           {isOpen && (
             <ContextMenu
               style={floatingStyles}
@@ -99,7 +99,9 @@ function PostCard(props: PostCardProps) {
         ))}
       {canLoadMoreComments && (
         <div className={styles.loadMoreComments}>
-          <span onClick={loadMoreComments}>Load More</span>
+          <Button variant="outlined" onClick={loadMoreComments}>
+            Load More
+          </Button>
         </div>
       )}
       <div className={styles.addComment}>
@@ -108,14 +110,18 @@ function PostCard(props: PostCardProps) {
           onChange={(e) => setNewComment(e.target.value)}
           label="New Comment"
         />
-        <div className={styles.commentActions}>
-          <Button variant="outlined" onClick={() => setNewComment("")}>
-            Cancel
-          </Button>
-          <Button disabled={newComment === ""} onClick={addComment}>
-            Add Comment
-          </Button>
-        </div>
+        {newComment.length > 0 && <div className={styles.commentActions}>
+         <Button variant="ghost" onClick={() => setNewComment("")}>
+          ❌
+        </Button>
+        <Button
+          variant={"ghost"}
+          disabled={newComment === ""}
+          onClick={addComment}
+        >
+          ✔️
+        </Button>
+        </div>}
       </div>
     </Card>
   );

@@ -1,8 +1,11 @@
+@import '../../colors.scss';
+
 .card{
-    background-color: #fafbfd;
+    background-color: rgba($neutral, 0.5);
     padding:25px;
     border: none;
-    border-bottom: 1px solid #e6ecf5;
+    border-bottom: 2px solid $neutral;
+    border-radius: 0%;
     .moreOptions {
         position: absolute;
         right: 50px;

@@ -1,4 +1,4 @@
-import { useClick, useFloating, useInteractions } from "@floating-ui/react";
+import { useClick, useDismiss, useFloating, useInteractions } from "@floating-ui/react";
 import { useState } from "react";
 
 const useContextMenu = () => {
@@ -11,8 +11,10 @@ const useContextMenu = () => {
   });
 
   const click = useClick(context);
+  const dismiss = useDismiss(context);
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([click]);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
   return { isOpen, setIsOpen, refs, floatingStyles, getReferenceProps, getFloatingProps };
 };

@@ -1,10 +1,12 @@
+@import '../../colors.scss';
+
 .container {
   width: 60%;
   margin: 0 auto;
   margin-top: 40px;
   h1 {
     margin-bottom: 20px;
-    color: #515365;
+    color: $primary-color;
   }
   .noPosts{
     text-align: center;

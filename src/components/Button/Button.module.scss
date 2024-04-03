@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 .button {
   padding: 0.8rem 2.1rem;
   font-size: 14px;
@@ -9,29 +11,41 @@
   user-select: none;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
+
   &.contained {
-    background-color: #ff5e3a;
-    border-color: #ff5e3a;
-    color: #fff;
+    background-color: $accent-color;
+    border-color: $accent-color;
+    color: $neutral;
 
     &:hover {
-      background-color: rgba(#ff5e3a, 0.8);
-      border-color: rgba(#ff5e3a, 0.8);
+      background-color: rgba($accent-color, 0.8);
+      border-color: rgba($accent-color, 0.8);
     }
     &:disabled {
-      background-color: #9a9fbf;
-      border-color: #9a9fbf;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
       cursor:default;
     }
   }
 
   &.outlined {
-    background-color: #fff;
-    border-color: #9a9fbf;
-    color: #3f4257;
+    background-color: $neutral;
+    border-color: $secondary-color;
+    color: $primary-color;
     &:hover {
-        border-color: rgba(#9a9fbf, 0.8);
-        color: rgba(#3f4257, 0.8);
+        border-color: rgba($secondary-color, 0.8);
+        color: rgba($primary-color, 0.8);
     }
+  }
+
+  &.ghost {
+    border: none;
+    color: $black;
+    background-color: transparent;
+    padding: 10px;
+
+    &:hover {
+      background-color: rgba($neutral, 0.8);
+  }
   }
 }

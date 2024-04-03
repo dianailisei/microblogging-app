@@ -1,9 +1,11 @@
+@import '../../colors.scss';
+
 .headerContainer {
   height: 70px;
   width: 100%;
   display: flex;
   flex-direction: row;
-  background-color: #3f4257;
+  background-color: $primary-color;
   justify-content: space-between;
   img {
     width: 60px;
@@ -15,16 +17,16 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: $white;
     text-decoration: none;
     .link {
       text-decoration: none;
-      color: white;
+      color: $white;
       padding: 25px 20px;
       font-weight: 500;
       transition: all 0.15s ease;
       &:hover {
-        color: #ff5e3a;
+        color: $accent-color;
       }
       cursor: pointer;
     }

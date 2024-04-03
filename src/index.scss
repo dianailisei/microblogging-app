@@ -1,3 +1,5 @@
+@import 'colors';
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -10,8 +12,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #edf2f6;
-  color: #888da8;
+  background-color: $neutral;
+  color: $secondary-color;
 }
 
 img, picture, video, canvas, svg {
@@ -29,4 +31,5 @@ p, h1, h2, h3, h4, h5, h6 {
 
 #root, #__next {
   isolation: isolate;
+  padding-bottom: 50px;
 }

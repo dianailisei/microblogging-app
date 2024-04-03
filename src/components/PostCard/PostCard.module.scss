@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 .card {
   padding: "20px";
   margin-top: "20px";
@@ -17,13 +19,18 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
+    margin-top:20px;
+    button{
+      background-color: $white;
+      border-color: $secondary-color;
+    }
   }
   .addComment {
-    border-top: 1px solid #e6ecf5;
-    padding: 25px;
+    margin-top: 10px;
+
   }
   .commentActions {
-    margin-top: 25px;
+    margin-top: 5px;
     display: flex;
     justify-content: right;
     gap: 25px;
