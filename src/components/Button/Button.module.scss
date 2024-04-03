@@ -18,6 +18,11 @@
       background-color: rgba(#ff5e3a, 0.8);
       border-color: rgba(#ff5e3a, 0.8);
     }
+    &:disabled {
+      background-color: #9a9fbf;
+      border-color: #9a9fbf;
+      cursor:default;
+    }
   }
 
   &.outlined {

@@ -7,11 +7,12 @@ type ButtonProps = {
 } & ComponentPropsWithRef<"button">;
 
 function Button(props: ButtonProps) {
-  const { className, children, variant = "contained" } = props;
+  const { className, children, disabled, variant = "contained" } = props;
   return (
     <button
       type="submit"
       className={clsx(styles.button, styles[variant], className)}
+      disabled={disabled}
       {...props}
     >
       {children}

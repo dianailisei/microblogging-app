@@ -1,17 +1,26 @@
 .card {
-    padding: "20px";
-    margin-bottom: "20px";
-    position: relative;
-    .postContent{
-        margin-top: 40px
-    }
-    .lastModified{
-        font-size: 14px;
-    }
-    .addComment{
-        margin-top: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+  padding: "20px";
+  margin-top: "20px";
+  position: relative;
+  .postContent {
+    margin-top: 40px;
+  }
+  .lastModified {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  .addComment {
+    border-top: 1px solid #e6ecf5;
+    padding:25px;
+  }
+  .commentActions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: right;
+    gap: 25px
+  }
 }

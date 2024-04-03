@@ -21,3 +21,13 @@ export type Post = {
   userId: number;
   author: User;
 };
+
+export type Comment = {
+  id: string,
+  content: string,
+  postId: string,
+  userId: string,
+  created: string,
+  modified: string,
+  author: User
+}
