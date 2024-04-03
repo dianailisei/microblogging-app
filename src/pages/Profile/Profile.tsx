@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./Profile.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { getUserPostsThunk } from "../../store/slices/post/thunks";
+import {
+  getUserPostsThunk,
+  loadMorePostsThunk,
+} from "../../store/slices/post/thunks";
 import PostCard from "../../components/PostCard/PostCard";
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
 import { type Post, User } from "../../types";
@@ -10,16 +13,20 @@ import useUserRights from "../../hooks/useUserRights";
 import { getUserByIdThunk } from "../../store/slices/user/thunks";
 import { useNavigate } from "react-router-dom";
 
+const NUMBER_OF_POSTS_PER_PAGE = 3;
+
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const posts: Post[] = useAppSelector((store) => store.post.posts);
   const postsAuthor: User | null = posts.length > 0 ? posts[0].author : null;
   const currentUser = useAppSelector((store) => store.user.currentUser);
-
+  const totalPostsCount = useAppSelector((store) => store.post.totalPostsCount);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { currentUserId, isOwner } = useUserRights();
+  const canLoadMorePosts = !!posts && posts.length < totalPostsCount;
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,6 +47,35 @@ const Profile = () => {
       }
     });
   }, [currentUserId]);
+
+  // #region infinite scroll loading
+  useEffect(() => {
+    if (isLoading || isLoadingMore || !canLoadMorePosts || !currentUserId)
+      return;
+
+    const scrollHandler = () => {
+      const scrolledTo = window.scrollY + window.innerHeight;
+      const threshold = 100;
+      const isReachBottom =
+        document.body.scrollHeight - threshold <= scrolledTo;
+
+      if (isReachBottom) {
+        setIsLoadingMore(true);
+        dispatch(
+          loadMorePostsThunk({
+            userId: currentUserId,
+            limit: NUMBER_OF_POSTS_PER_PAGE,
+            offset: posts?.length,
+          })
+        ).finally(() => setIsLoadingMore(false));
+      }
+    };
+    window.addEventListener("scroll", scrollHandler);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, [isLoading, canLoadMorePosts, isLoadingMore, currentUserId, posts]);
+  // #endregion
 
   if (isLoading || !posts)
     return <h2 className={styles.loading}>Loading...</h2>;

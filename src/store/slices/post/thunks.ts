@@ -6,7 +6,17 @@ export const getUserPostsThunk = createAsyncThunk(
   "users/posts",
   async (userId: string) => {
     const response = await axios.get<{ items: Post[]; totalCount: number }>(
-      `/users/${userId}/posts`
+      `/users/${userId}/posts?limit=3&offset=0`
+    );
+    return response.data;
+  }
+);
+
+export const loadMorePostsThunk = createAsyncThunk(
+  "posts/loadMore",
+  async (payload: {userId: string, limit:number, offset: number}) => {
+    const response = await axios.get<{ items: Post[] , totalCount:number}>(
+      `/users/${payload.userId}/posts?limit=${payload.limit}&offset=${payload.offset}`
     );
     return response.data;
   }

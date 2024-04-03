@@ -7,6 +7,7 @@ import {
   getCommentsByPostThunk,
   getUserPostsThunk,
   loadMoreCommentsByPostThunk,
+  loadMorePostsThunk,
 } from "./thunks";
 import { type Post, Comment } from "../../../types";
 
@@ -41,6 +42,10 @@ export const postSlice = createSlice({
     builder.addCase(getUserPostsThunk.fulfilled, (state, action) => {
       state.posts = action.payload.items;
       state.totalPostsCount = action.payload.totalCount;
+    });
+    builder.addCase(loadMorePostsThunk.fulfilled, (state, action) => {
+      const { items } = action.payload;
+      state.posts = [...state.posts, ...items];
     });
     builder.addCase(createPostThunk.fulfilled, (state, action) => {
       state.posts = [...state.posts, action.payload];
