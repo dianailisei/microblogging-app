@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserThunk } from "./thunks";
+import { getUserByIdThunk, loginUserThunk } from "./thunks";
 import { User } from "../../../types";
 import { AppDispatch } from "../..";
 
 type UserState = {
   loggedUser: User | null;
+  currentUser: User | null;
 };
 const initialState: UserState = {
   loggedUser: null,
+  currentUser: null
 };
 
 export const userSlice = createSlice({
@@ -17,12 +19,19 @@ export const userSlice = createSlice({
     setUser(state, action) {
       state.loggedUser = action.payload;
     },
+    clearUser(state, action){
+      state.loggedUser = null;
+      state.currentUser = null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(loginUserThunk.fulfilled, (state, action) => {
       localStorage.setItem("accessToken", action.payload.accessToken as string);
       localStorage.setItem('user', JSON.stringify(action.payload));
       state.loggedUser = action.payload;
+    });
+    builder.addCase(getUserByIdThunk.fulfilled, (state, action) => {
+      state.currentUser = action.payload;
     });
   },
 });
@@ -36,6 +45,6 @@ export const hydrateUser = () => {
   };
 };
 
-export const { setUser } = userSlice.actions;
+export const { setUser,clearUser } = userSlice.actions;
 
 export default userSlice.reducer;

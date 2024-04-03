@@ -14,29 +14,36 @@ function AddPostForm() {
   const dispatch = useAppDispatch();
   async function createPost() {
     await dispatch(createPostThunk({ title, content }));
+    setTitle("");
+    setContent("");
   }
 
   return (
     <Card className={styles.card}>
       <h3>Add new post</h3>
-      <form  className={styles.addPostForm}>
-      <TextInput
-        name="title"
-        type="text"
-        label="Title"
-        value={title}
-        required
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <TextInput
-        name="content"
-        type="text"
-        label="Content"
-        value={content}
-        required
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <Button onClick={createPost}>Add post</Button></form>
+      <div className={styles.addPostForm}>
+        <TextInput
+          id="title"
+          name="title"
+          type="text"
+          label="Title"
+          value={title}
+          required
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <TextInput
+          id="content"
+          name="content"
+          type="text"
+          label="Content"
+          value={content}
+          required
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <Button disabled={title === "" || content === ""} onClick={createPost}>
+          Add post
+        </Button>
+      </div>
     </Card>
   );
 }

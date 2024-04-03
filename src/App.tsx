@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
-import Profile from "./pages/Posts/Profile"; 
+import Profile from "./pages/Profile/Profile"; 
 import { Provider } from "react-redux";
 import store from "./store";
 

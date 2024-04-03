@@ -9,3 +9,10 @@ export const loginUserThunk = createAsyncThunk(
     return response.data as User;
   }
 );
+export const getUserByIdThunk = createAsyncThunk(
+  "users/get",
+  async (userId: string) => {
+    const response = await axios.get(`/users/${userId}`);
+    return response.data as User;
+  }
+);

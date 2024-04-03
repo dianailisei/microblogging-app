@@ -1,19 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
+import { useAppDispatch } from "../../store";
+import { clearUser } from "../../store/slices/user/user";
+import { clearPosts } from "../../store/slices/post/post";
 
 function Header() {
   const isUserLoggedIn = !!localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  function logout() {
+    localStorage.clear();
+    dispatch(clearUser);
+    dispatch(clearPosts);
+    navigate("/login");
+  }
   return (
     <header className={styles.headerContainer}>
-      <div className={styles.container}>
+      <Link to="/profile" className={styles.container}>
         <img src="/icon.png" alt="logo" />
         <h2>Chit-Chat</h2>
-      </div>
+      </Link>
       <div className={styles.container}>
         {isUserLoggedIn ? (
-          <Link to="/feed" className={styles.link}>Posts</Link>
+          <div className={styles.link} onClick={logout}>
+            Logout
+          </div>
         ) : (
-          <Link to="/login" className={styles.link}>Login</Link>
+          <Link to="/login" className={styles.link}>
+            Login
+          </Link>
         )}
       </div>
     </header>

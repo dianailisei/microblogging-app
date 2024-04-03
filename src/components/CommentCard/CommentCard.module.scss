@@ -3,4 +3,10 @@
     padding:25px;
     border: none;
     border-bottom: 1px solid #e6ecf5;
+    .moreOptions {
+        position: absolute;
+        right: 50px;
+        cursor: pointer;
+    }
+    
 }

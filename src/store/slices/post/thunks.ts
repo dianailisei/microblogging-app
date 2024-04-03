@@ -30,7 +30,24 @@ export const getCommentsByPostThunk = createAsyncThunk(
   }
 );
 
-export const addCommentThunk = createAsyncThunk("posts/comment", async (comment: Pick<Comment, "postId" | "content">): Promise<Comment> => {
-  const response = await axios.post<Comment>("/comments", comment);
-  return response.data;
-});
+export const addCommentThunk = createAsyncThunk(
+  "posts/comment",
+  async (comment: Pick<Comment, "postId" | "content">): Promise<Comment> => {
+    const response = await axios.post<Comment>("/comments", comment);
+    return response.data;
+  }
+);
+
+export const deletePostThunk = createAsyncThunk(
+  "posts/delete",
+  async (postId: string) => {
+    await axios.delete(`/posts/${postId}`);
+  }
+);
+
+export const deleteCommentThunk = createAsyncThunk(
+  "comments/delete",
+  async (comment: { id: string; postId: string }) => {
+    await axios.delete(`/comments/${comment.id}`);
+  }
+);
