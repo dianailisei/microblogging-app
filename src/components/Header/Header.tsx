@@ -17,9 +17,14 @@ const Header = () => {
             Logout
           </div>
         ) : (
-          <Link to="/login" className={styles.link}>
-            Login
-          </Link>
+          <div>
+            <Link to="/login" className={styles.link}>
+              Login
+            </Link>
+            <Link to="/register" className={styles.link}>
+              Register
+            </Link>
+          </div>
         )}
       </div>
     </header>

@@ -12,6 +12,12 @@ export type User = {
   accessToken?: string;
 };
 
+export type RegisterUserData = {
+  username: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}
 export type Post = {
   id: string;
   title: string;

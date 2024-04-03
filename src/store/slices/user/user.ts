@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getUserByIdThunk, loginUserThunk } from "./thunks";
+import { createSlice, isFulfilled } from "@reduxjs/toolkit";
+import { createUserThunk, getUserByIdThunk, loginUserThunk } from "./thunks";
 import { type User } from "../../../types";
 
 type UserState = {
@@ -8,36 +8,42 @@ type UserState = {
 };
 const initialState: UserState = {
   loggedUser: null,
-  currentUser: null
+  currentUser: null,
 };
 
 export const userSlice = createSlice({
   name: "userState",
   initialState: initialState,
   reducers: {
-    setUser(state, action: {payload: User}) {
+    setUser(state, action: { payload: User }) {
       state.loggedUser = action.payload;
       state.loggedUser.id = action.payload.id.toString();
     },
-    clearUser(state){
+    clearUser(state) {
       state.loggedUser = null;
       state.currentUser = null;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUserThunk.fulfilled, (state, action) => {
-      localStorage.setItem("accessToken", action.payload.accessToken as string);
-      localStorage.setItem('user', JSON.stringify(action.payload));
-      state.loggedUser = action.payload;
-      state.loggedUser.id = state.loggedUser.id.toString();
-    });
     builder.addCase(getUserByIdThunk.fulfilled, (state, action) => {
       state.currentUser = action.payload;
       state.currentUser.id = state.currentUser.id.toString();
     });
+    builder.addMatcher(
+      isFulfilled(loginUserThunk, createUserThunk),
+      (state, action) => {
+        localStorage.setItem(
+          "accessToken",
+          action.payload.accessToken as string
+        );
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        state.loggedUser = action.payload;
+        state.loggedUser.id = state.loggedUser.id.toString();
+      }
+    );
   },
 });
 
-export const { setUser,clearUser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 
 export default userSlice.reducer;

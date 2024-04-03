@@ -5,6 +5,7 @@ import Profile from "./pages/Profile/Profile";
 import { Provider } from "react-redux";
 import store from "./store";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Provider>

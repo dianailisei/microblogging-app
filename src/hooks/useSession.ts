@@ -1,7 +1,7 @@
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../store";
-import { loginUserThunk } from "../store/slices/user/thunks";
-import { UserCredetials } from "../types";
+import { createUserThunk, loginUserThunk } from "../store/slices/user/thunks";
+import { type RegisterUserData, UserCredetials } from "../types";
 import { clearUser } from "../store/slices/user/user";
 import { clearPosts } from "../store/slices/post/post";
 
@@ -24,6 +24,19 @@ const useSession = () => {
       });
   }
 
+  function register(user:RegisterUserData){
+    dispatch(createUserThunk(user))
+    .unwrap()
+    .then((result) => {
+      navigate({
+        pathname: "/profile",
+        search: createSearchParams({
+          userid: result.id.toString(),
+        }).toString(),
+      });
+    });
+  }
+
   function logout() {
     localStorage.clear();
     dispatch(clearUser());
@@ -31,7 +44,7 @@ const useSession = () => {
     navigate("/login");
   }
 
-  return { login, logout, isLoggedIn };
+  return { login, register, logout, isLoggedIn };
 };
 
 export default useSession;
