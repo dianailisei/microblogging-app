@@ -35,6 +35,9 @@ export const postSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getUserPostsThunk.pending, () => {
+      clearPosts();
+    });
     builder.addCase(getUserPostsThunk.fulfilled, (state, action) => {
       state.posts = action.payload.items;
       state.totalPostsCount = action.payload.totalCount;

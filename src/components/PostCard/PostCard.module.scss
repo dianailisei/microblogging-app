@@ -5,15 +5,16 @@
   margin-top: "20px";
   position: relative;
   .postContent {
-    margin-top: 40px;
+    margin: 20px 0px 20px 10px;
+    font-size: 18px;
+  }
+  .title{
+    margin-bottom: 5px;
   }
   .lastModified {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    display:inline-block;
     font-size: 14px;
+    font-weight: 300;
   }
   .loadMoreComments {
     cursor: pointer;

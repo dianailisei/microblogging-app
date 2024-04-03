@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile"; 
 import { Provider } from "react-redux";
 import store from "./store";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Provider>
   );

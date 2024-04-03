@@ -4,18 +4,19 @@ import Card from "../Card/Card";
 import styles from "./CommentCard.module.scss";
 import { formatDate } from "../../utils";
 import clsx from "clsx";
-import useIsLoggedUser from "../../utils/useIsLoggedUser";
-import useContextMenu from "../../utils/useContextMenu";
+import useContextMenu from "../../hooks/useContextMenu";
 import ContextMenu from "../ContextMenu/ContextMenu";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { deleteCommentThunk } from "../../store/slices/post/thunks";
 import Button from "../Button/Button";
+import { Link } from "react-router-dom";
 
 type CommentProps = Comment & ComponentProps<"div">;
 
 function CommentCard(props: CommentProps) {
   const { id, content, postId, author, created, className } = props;
-  const { loggedUserId } = useIsLoggedUser();
+  const loggedUserId = useAppSelector((store) => store.user.loggedUser?.id);
+
   const {
     isOpen,
     setIsOpen,
@@ -34,12 +35,13 @@ function CommentCard(props: CommentProps) {
 
   return (
     <Card className={clsx(styles.card, className)}>
-      {(loggedUserId===author.id) && (
+      {loggedUserId === author.id.toString() && (
         <>
-          <Button variant="ghost"
+          <Button
+            variant="ghost"
             ref={refs.setReference}
             {...getReferenceProps()}
-           className={styles.moreOptions}
+            className={styles.moreOptions}
           >
             ⚙️
           </Button>
@@ -55,11 +57,13 @@ function CommentCard(props: CommentProps) {
           )}
         </>
       )}
-      <h3>
-        {author.firstName} {author.lastName}
-      </h3>
-      <p>{content}</p>
-      <p>Created: {formatDate(created)}</p>
+      <div>
+        <Link to={`/profile?userid=${author.id}`} className={styles.authorName}>
+          {author.firstName} {author.lastName} ·{" "}
+        </Link>
+        <span className={styles.createdDate}>{formatDate(created)}</span>
+      </div>
+      <p className={styles.content}>{content}</p>
     </Card>
   );
 }

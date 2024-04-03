@@ -6,29 +6,41 @@ import PostCard from "../../components/PostCard/PostCard";
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
 import { Post, User } from "../../types";
 import Card from "../../components/Card/Card";
-import useIsLoggedUser from "../../utils/useIsLoggedUser";
+import useUserRights from "../../hooks/useUserRights";
 import { getUserByIdThunk } from "../../store/slices/user/thunks";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const posts: Post[] = useAppSelector((store) => store.post.posts);
   const postsAuthor: User | null = posts.length > 0 ? posts[0].author : null;
   const currentUser = useAppSelector((store) => store.user.currentUser);
-  const { currentUserId, isLoggedUser } = useIsLoggedUser();
+  const { currentUserId, isOwner } = useUserRights();
 
   useEffect(() => {
-    dispatch(getUserByIdThunk(currentUserId));
-  }, []);
+    if (!currentUserId) {
+      navigate("/login");
+      return;
+    }
+    setIsLoading(true);
+    dispatch(getUserByIdThunk(currentUserId)).then(actionResult => {
+      if(actionResult.meta.requestStatus === "rejected") {
+        navigate("/404");
+      }
 
-  useEffect(() => {
-    dispatch(getUserPostsThunk(currentUserId)).finally(() => {
-      setIsLoading(false);
+      if(actionResult.meta.requestStatus === "fulfilled") {
+        dispatch(getUserPostsThunk(currentUserId)).finally(() => {
+          setIsLoading(false);
+        });
+      }
     });
-  }, []);
 
-  if (isLoading || !posts) return "loading...";
+  }, [currentUserId]);
+
+  if (isLoading || !posts) return <h2 className={styles.loading}>Loading...</h2>;
 
   return (
     <div className={styles.container}>
@@ -38,7 +50,7 @@ function Profile() {
           : `${currentUser?.firstName} ${currentUser?.lastName}`}
         's posts
       </h1>
-      {isLoggedUser && <AddPostForm />}
+      {isOwner && <AddPostForm />}
       {posts.length === 0 && (
         <Card className={styles.noPosts}>
           <h2>No posts yet!</h2>

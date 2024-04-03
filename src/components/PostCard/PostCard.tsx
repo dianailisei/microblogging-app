@@ -15,16 +15,16 @@ import {
 import Comment from "../CommentCard/CommentCard";
 import TextInput from "../TextInput/TextInput";
 import ContextMenu from "../ContextMenu/ContextMenu";
-import useIsLoggedUser from "../../utils/useIsLoggedUser";
-import useContextMenu from "../../utils/useContextMenu";
+import useContextMenu from "../../hooks/useContextMenu";
+import useUserRights from "../../hooks/useUserRights";
 type PostCardProps = Post & ComponentProps<"div">;
 
 const NUMBER_OF_COMMENTS_PER_PAGE = 3;
 
 function PostCard(props: PostCardProps) {
-  const { id, title, content, modified, className } = props;
+  const { id, title, content, modified, author, className } = props;
   const [newComment, setNewComment] = useState<string>("");
-  const { isLoggedUser } = useIsLoggedUser();
+  const { isOwner } = useUserRights();
 
   const dispatch = useAppDispatch();
   const comments = useAppSelector((store) => store.post.comments[id]);
@@ -69,12 +69,13 @@ function PostCard(props: PostCardProps) {
 
   return (
     <Card className={clsx(styles.card, className)}>
-      {isLoggedUser && (
+      {isOwner && (
         <>
-          <Button variant="ghost"
+          <Button
+            variant="ghost"
             ref={refs.setReference}
             {...getReferenceProps()}
-           className={styles.moreOptions}
+            className={styles.moreOptions}
           >
             ⚙️
           </Button>
@@ -88,11 +89,13 @@ function PostCard(props: PostCardProps) {
           )}
         </>
       )}
-      <h3>{title}</h3>
+      <h2 className={styles.title}>{title}</h2>
+      <h4>
+        {author.firstName} {author.lastName} ·{" "}
+        <span className={styles.lastModified}>{formatDate(modified)}</span>
+      </h4>
       <p className={styles.postContent}>{content}</p>
-      <span className={styles.lastModified}>
-        Last Modified: {formatDate(modified)}
-      </span>
+
       {comments?.length > 0 &&
         comments.map((comment) => (
           <Comment key={`comment-${comment.id}`} {...comment} />
@@ -108,20 +111,22 @@ function PostCard(props: PostCardProps) {
         <TextInput
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          label="New Comment"
+          label="Comment"
         />
-        {newComment.length > 0 && <div className={styles.commentActions}>
-         <Button variant="ghost" onClick={() => setNewComment("")}>
-          ❌
-        </Button>
-        <Button
-          variant={"ghost"}
-          disabled={newComment === ""}
-          onClick={addComment}
-        >
-          ✔️
-        </Button>
-        </div>}
+        {newComment.length > 0 && (
+          <div className={styles.commentActions}>
+            <Button variant="ghost" onClick={() => setNewComment("")}>
+              ❌
+            </Button>
+            <Button
+              variant={"ghost"}
+              disabled={newComment === ""}
+              onClick={addComment}
+            >
+              ✔️
+            </Button>
+          </div>
+        )}
       </div>
     </Card>
   );

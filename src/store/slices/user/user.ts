@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserByIdThunk, loginUserThunk } from "./thunks";
 import { User } from "../../../types";
-import { AppDispatch } from "../..";
 
 type UserState = {
   loggedUser: User | null;
@@ -16,34 +15,28 @@ export const userSlice = createSlice({
   name: "userState",
   initialState: initialState,
   reducers: {
-    setUser(state, action) {
+    setUser(state, action: {payload: User}) {
       state.loggedUser = action.payload;
+      state.loggedUser.id = action.payload.id.toString();
     },
-    clearUser(state, action){
+    clearUser(state){
       state.loggedUser = null;
       state.currentUser = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUserThunk.fulfilled, (state, action) => {
       localStorage.setItem("accessToken", action.payload.accessToken as string);
       localStorage.setItem('user', JSON.stringify(action.payload));
       state.loggedUser = action.payload;
+      state.loggedUser.id = state.loggedUser.id.toString();
     });
     builder.addCase(getUserByIdThunk.fulfilled, (state, action) => {
       state.currentUser = action.payload;
+      state.currentUser.id = state.currentUser.id.toString();
     });
   },
 });
-
-export const hydrateUser = () => {
-  return (dispatch: AppDispatch) => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      dispatch(setUser(JSON.parse(storedUser)));
-    }
-  };
-};
 
 export const { setUser,clearUser } = userSlice.actions;
 
