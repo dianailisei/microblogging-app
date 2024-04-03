@@ -13,17 +13,22 @@
     margin-bottom: 20px;
     font-size: 14px;
   }
+  .loadMoreComments {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
   .addComment {
     border-top: 1px solid #e6ecf5;
-    padding:25px;
+    padding: 25px;
   }
   .commentActions {
     margin-top: 25px;
     display: flex;
     justify-content: right;
-    gap: 25px
+    gap: 25px;
   }
-  .moreOptions{
+  .moreOptions {
     position: absolute;
     right: 24px;
     cursor: pointer;

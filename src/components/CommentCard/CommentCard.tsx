@@ -14,7 +14,7 @@ type CommentProps = Comment & ComponentProps<"div">;
 
 function CommentCard(props: CommentProps) {
   const { id, content, postId, author, created, className } = props;
-  const { loggedUserId, isLoggedUser } = useIsLoggedUser();
+  const { loggedUserId } = useIsLoggedUser();
   const {
     isOpen,
     setIsOpen,
@@ -23,7 +23,7 @@ function CommentCard(props: CommentProps) {
     getReferenceProps,
     getFloatingProps,
   } = useContextMenu();
-  
+
   const dispatch = useAppDispatch();
 
   async function deleteComment() {
@@ -33,7 +33,7 @@ function CommentCard(props: CommentProps) {
 
   return (
     <Card className={clsx(styles.card, className)}>
-      {(isLoggedUser || loggedUserId===author.id) && (
+      {(loggedUserId===author.id) && (
         <>
           <div
             ref={refs.setReference}

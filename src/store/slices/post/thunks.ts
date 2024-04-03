@@ -23,15 +23,25 @@ export const createPostThunk = createAsyncThunk<
 export const getCommentsByPostThunk = createAsyncThunk(
   "posts/comments",
   async (postId: string) => {
-    const response = await axios.get<{ items: Comment[] }>(
-      `/posts/${postId}/comments`
+    const response = await axios.get<{ items: Comment[] , totalCount:number}>(
+      `/posts/${postId}/comments?limit=3&offset=0`
+    );
+    return response.data;
+  }
+);
+
+export const loadMoreCommentsByPostThunk = createAsyncThunk(
+  "posts/comments/loadMore",
+  async (payload: {postId: string, limit:number, offset: number}) => {
+    const response = await axios.get<{ items: Comment[] , totalCount:number}>(
+      `/posts/${payload.postId}/comments?limit=${payload.limit}&offset=${payload.offset}`
     );
     return response.data;
   }
 );
 
 export const addCommentThunk = createAsyncThunk(
-  "posts/comment",
+  "posts/comment/add",
   async (comment: Pick<Comment, "postId" | "content">): Promise<Comment> => {
     const response = await axios.post<Comment>("/comments", comment);
     return response.data;

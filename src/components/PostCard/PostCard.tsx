@@ -10,6 +10,7 @@ import {
   addCommentThunk,
   deletePostThunk,
   getCommentsByPostThunk,
+  loadMoreCommentsByPostThunk,
 } from "../../store/slices/post/thunks";
 import Comment from "../CommentCard/CommentCard";
 import TextInput from "../TextInput/TextInput";
@@ -18,6 +19,8 @@ import useIsLoggedUser from "../../utils/useIsLoggedUser";
 import useContextMenu from "../../utils/useContextMenu";
 type PostCardProps = Post & ComponentProps<"div">;
 
+const NUMBER_OF_COMMENTS_PER_PAGE = 3;
+
 function PostCard(props: PostCardProps) {
   const { id, title, content, modified, className } = props;
   const [newComment, setNewComment] = useState<string>("");
@@ -25,6 +28,11 @@ function PostCard(props: PostCardProps) {
 
   const dispatch = useAppDispatch();
   const comments = useAppSelector((store) => store.post.comments[id]);
+  const totalCommentsCount = useAppSelector(
+    (store) => store.post.totalCommentsCount
+  );
+  const canLoadMoreComments =
+    !!comments && comments.length < totalCommentsCount[id];
 
   useEffect(() => {
     dispatch(getCommentsByPostThunk(id));
@@ -38,6 +46,16 @@ function PostCard(props: PostCardProps) {
   async function deletePost() {
     await dispatch(deletePostThunk(id));
     setIsOpen(false);
+  }
+
+  async function loadMoreComments() {
+    await dispatch(
+      loadMoreCommentsByPostThunk({
+        postId: id,
+        limit: NUMBER_OF_COMMENTS_PER_PAGE,
+        offset: comments?.length,
+      })
+    );
   }
 
   const {
@@ -75,10 +93,15 @@ function PostCard(props: PostCardProps) {
       <span className={styles.lastModified}>
         Last Modified: {formatDate(modified)}
       </span>
-      {comments?.length &&
+      {comments?.length > 0 &&
         comments.map((comment) => (
           <Comment key={`comment-${comment.id}`} {...comment} />
         ))}
+      {canLoadMoreComments && (
+        <div className={styles.loadMoreComments}>
+          <span onClick={loadMoreComments}>Load More</span>
+        </div>
+      )}
       <div className={styles.addComment}>
         <TextInput
           value={newComment}
