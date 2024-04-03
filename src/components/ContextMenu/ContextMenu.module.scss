@@ -1,21 +1,21 @@
-@import '../../colors.scss';
+@import "../../styles/colors.scss";
 
-.menuButton{
-    cursor:pointer
+.menuButton {
+  cursor: pointer;
 }
 .contextMenu {
-    left: 0px;
-    top: 0px;
-    transform: translate(150px, 48px);
-    max-width: 200px;
-    display: block;
-    position: absolute;
-    right: 0;
-    width: 180px;
-    box-shadow: 0 0 34px 0 rgba(63,66,87,.1);
-    background-color: $white;
-    border-radius: 4px;
-    transition: visibility 0s linear .3s, opacity .3s linear;
-    text-align: left;
-    padding: 15px 20px;
-  }
+  left: 0px;
+  top: 0px;
+  transform: translate(150px, 48px);
+  max-width: 200px;
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 180px;
+  box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
+  background-color: $white;
+  border-radius: 4px;
+  transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+  text-align: left;
+  padding: 15px 20px;
+}

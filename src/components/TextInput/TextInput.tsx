@@ -1,11 +1,11 @@
-import { ComponentPropsWithRef } from "react";
+import { type ComponentPropsWithRef } from "react";
 import styles from "./TextInput.module.scss";
 
 export interface TextInputProps extends ComponentPropsWithRef<"input"> {
-    label: string;
-  }
+  label: string;
+}
 
-function TextInput(props: TextInputProps) {
+const TextInput = (props: TextInputProps) => {
   const { name, label } = props;
   return (
     <div className={styles.inputContainer}>
@@ -13,6 +13,6 @@ function TextInput(props: TextInputProps) {
       <input {...props} className={styles.input} />
     </div>
   );
-}
+};
 
 export default TextInput;

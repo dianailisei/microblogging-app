@@ -7,7 +7,7 @@ const useUserRights = () => {
   const loggedUserId = useAppSelector((store) => store.user.loggedUser?.id);
 
   const currentUserId = paramsUserId ? paramsUserId : loggedUserId;
-  
+
   return { currentUserId, isOwner: loggedUserId === currentUserId };
 };
 

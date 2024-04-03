@@ -1,4 +1,4 @@
-@import '../../colors.scss';
+@import "../../styles/colors.scss";
 
 .container {
   width: 60%;
@@ -8,13 +8,12 @@
     margin-bottom: 20px;
     color: $primary-color;
   }
-  .noPosts{
+  .noPosts {
     text-align: center;
   }
   .postCard {
     margin-top: 20px;
   }
- 
 }
 
 .loading {

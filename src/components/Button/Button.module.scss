@@ -1,4 +1,4 @@
-@import '../../colors.scss';
+@import "../../styles/colors.scss";
 
 .button {
   padding: 0.8rem 2.1rem;
@@ -24,7 +24,7 @@
     &:disabled {
       background-color: $secondary-color;
       border-color: $secondary-color;
-      cursor:default;
+      cursor: default;
     }
   }
 
@@ -33,8 +33,8 @@
     border-color: $secondary-color;
     color: $primary-color;
     &:hover {
-        border-color: rgba($secondary-color, 0.8);
-        color: rgba($primary-color, 0.8);
+      border-color: rgba($secondary-color, 0.8);
+      color: rgba($primary-color, 0.8);
     }
   }
 
@@ -46,6 +46,6 @@
 
     &:hover {
       background-color: rgba($neutral, 0.8);
-  }
+    }
   }
 }

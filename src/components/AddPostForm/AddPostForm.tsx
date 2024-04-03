@@ -7,16 +7,17 @@ import styles from "./AddPostForm.module.scss";
 import { createPostThunk } from "../../store/slices/post/thunks";
 import { useAppDispatch } from "../../store";
 
-function AddPostForm() {
+const AddPostForm = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  async function createPost() {
-    await dispatch(createPostThunk({ title, content }));
+
+  const createPost = () => {
+    dispatch(createPostThunk({ title, content }));
     setTitle("");
     setContent("");
-  }
+  };
 
   return (
     <Card className={styles.card}>
@@ -40,12 +41,12 @@ function AddPostForm() {
           required
           onChange={(e) => setContent(e.target.value)}
         />
-        <Button disabled={title === "" || content === ""} onClick={createPost}>
+        <Button disabled={!title || !content} onClick={createPost}>
           Add post
         </Button>
       </div>
     </Card>
   );
-}
+};
 
 export default AddPostForm;

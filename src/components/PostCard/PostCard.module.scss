@@ -1,4 +1,4 @@
-@import '../../colors.scss';
+@import "../../styles/colors.scss";
 
 .card {
   padding: "20px";
@@ -8,11 +8,11 @@
     margin: 20px 0px 20px 10px;
     font-size: 18px;
   }
-  .title{
+  .title {
     margin-bottom: 5px;
   }
   .lastModified {
-    display:inline-block;
+    display: inline-block;
     font-size: 14px;
     font-weight: 300;
   }
@@ -20,15 +20,14 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
-    margin-top:20px;
-    button{
+    margin-top: 20px;
+    button {
       background-color: $white;
       border-color: $secondary-color;
     }
   }
   .addComment {
     margin-top: 10px;
-
   }
   .commentActions {
     margin-top: 5px;

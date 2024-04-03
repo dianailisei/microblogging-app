@@ -1,14 +1,14 @@
 .container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    .loginCard {
-        margin-top: 200px;
-        min-width: 400px;
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+  .loginCard {
+    margin-top: 200px;
+    min-width: 400px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
+  }
 }

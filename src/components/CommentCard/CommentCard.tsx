@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 import { Comment } from "../../types";
 import Card from "../Card/Card";
 import styles from "./CommentCard.module.scss";
@@ -13,9 +13,11 @@ import { Link } from "react-router-dom";
 
 type CommentProps = Comment & ComponentProps<"div">;
 
-function CommentCard(props: CommentProps) {
+const CommentCard = (props: CommentProps) => {
   const { id, content, postId, author, created, className } = props;
+
   const loggedUserId = useAppSelector((store) => store.user.loggedUser?.id);
+  const dispatch = useAppDispatch();
 
   const {
     isOpen,
@@ -26,12 +28,10 @@ function CommentCard(props: CommentProps) {
     getFloatingProps,
   } = useContextMenu();
 
-  const dispatch = useAppDispatch();
-
-  async function deleteComment() {
-    await dispatch(deleteCommentThunk({ id, postId }));
+  const deleteComment = () => {
+    dispatch(deleteCommentThunk({ id, postId }));
     setIsOpen(false);
-  }
+  };
 
   return (
     <Card className={clsx(styles.card, className)}>
@@ -40,8 +40,8 @@ function CommentCard(props: CommentProps) {
           <Button
             variant="ghost"
             ref={refs.setReference}
-            {...getReferenceProps()}
             className={styles.moreOptions}
+            {...getReferenceProps()}
           >
             ⚙️
           </Button>
@@ -49,10 +49,10 @@ function CommentCard(props: CommentProps) {
             <ContextMenu
               style={floatingStyles}
               ref={refs.setFloating}
-              {...getFloatingProps()}
               items={[
                 { id: 1, name: "Delete comment", onClick: deleteComment },
               ]}
+              {...getFloatingProps()}
             />
           )}
         </>
@@ -66,6 +66,6 @@ function CommentCard(props: CommentProps) {
       <p className={styles.content}>{content}</p>
     </Card>
   );
-}
+};
 
 export default CommentCard;

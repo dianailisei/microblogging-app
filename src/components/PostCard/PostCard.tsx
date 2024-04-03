@@ -1,4 +1,4 @@
-import { ComponentProps, useEffect, useState } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
 import { type Post } from "../../types";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
@@ -17,46 +17,22 @@ import TextInput from "../TextInput/TextInput";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import useUserRights from "../../hooks/useUserRights";
+
 type PostCardProps = Post & ComponentProps<"div">;
 
 const NUMBER_OF_COMMENTS_PER_PAGE = 3;
 
-function PostCard(props: PostCardProps) {
+const PostCard = (props: PostCardProps) => {
   const { id, title, content, modified, author, className } = props;
   const [newComment, setNewComment] = useState<string>("");
-  const { isOwner } = useUserRights();
 
-  const dispatch = useAppDispatch();
   const comments = useAppSelector((store) => store.post.comments[id]);
   const totalCommentsCount = useAppSelector(
     (store) => store.post.totalCommentsCount
   );
-  const canLoadMoreComments =
-    !!comments && comments.length < totalCommentsCount[id];
 
-  useEffect(() => {
-    dispatch(getCommentsByPostThunk(id));
-  }, []);
-
-  async function addComment() {
-    await dispatch(addCommentThunk({ postId: id, content: newComment }));
-    setNewComment("");
-  }
-
-  async function deletePost() {
-    await dispatch(deletePostThunk(id));
-    setIsOpen(false);
-  }
-
-  async function loadMoreComments() {
-    await dispatch(
-      loadMoreCommentsByPostThunk({
-        postId: id,
-        limit: NUMBER_OF_COMMENTS_PER_PAGE,
-        offset: comments?.length,
-      })
-    );
-  }
+  const dispatch = useAppDispatch();
+  const { isOwner } = useUserRights();
 
   const {
     isOpen,
@@ -67,24 +43,51 @@ function PostCard(props: PostCardProps) {
     getFloatingProps,
   } = useContextMenu();
 
+  const canLoadMoreComments =
+    !!comments && comments.length < totalCommentsCount[id];
+
+  useEffect(() => {
+    dispatch(getCommentsByPostThunk(id));
+  }, []);
+
+  const addComment = () => {
+    dispatch(addCommentThunk({ postId: id, content: newComment }));
+    setNewComment("");
+  };
+
+  const deletePost = () => {
+    dispatch(deletePostThunk(id));
+    setIsOpen(false);
+  };
+
+  const loadMoreComments = () => {
+    dispatch(
+      loadMoreCommentsByPostThunk({
+        postId: id,
+        limit: NUMBER_OF_COMMENTS_PER_PAGE,
+        offset: comments?.length,
+      })
+    );
+  };
+
   return (
     <Card className={clsx(styles.card, className)}>
       {isOwner && (
         <>
           <Button
-            variant="ghost"
             ref={refs.setReference}
-            {...getReferenceProps()}
             className={styles.moreOptions}
+            variant="ghost"
+            {...getReferenceProps()}
           >
             ⚙️
           </Button>
           {isOpen && (
             <ContextMenu
-              style={floatingStyles}
               ref={refs.setFloating}
-              {...getFloatingProps()}
+              style={floatingStyles}
               items={[{ id: 1, name: "Delete post", onClick: deletePost }]}
+              {...getFloatingProps()}
             />
           )}
         </>
@@ -130,6 +133,6 @@ function PostCard(props: PostCardProps) {
       </div>
     </Card>
   );
-}
+};
 
 export default PostCard;

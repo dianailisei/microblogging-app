@@ -10,7 +10,7 @@ const useSession = () => {
   const navigate = useNavigate();
 
   const isLoggedIn = !!localStorage.getItem("accessToken");
-  
+
   function login(credentials: UserCredetials) {
     dispatch(loginUserThunk(credentials))
       .unwrap()

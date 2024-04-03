@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../axios";
-import { Post, Comment } from "../../../types";
+import { type Post, Comment } from "../../../types";
 
 export const getUserPostsThunk = createAsyncThunk(
   "users/posts",
@@ -15,7 +15,7 @@ export const getUserPostsThunk = createAsyncThunk(
 export const createPostThunk = createAsyncThunk<
   Post,
   Pick<Post, "title" | "content">
->("posts", async (post: Pick<Post, "title" | "content">): Promise<Post> => {
+>("posts/add", async (post: Pick<Post, "title" | "content">): Promise<Post> => {
   const response = await axios.post<Post>("/posts", post);
   return response.data;
 });
@@ -56,7 +56,7 @@ export const deletePostThunk = createAsyncThunk(
 );
 
 export const deleteCommentThunk = createAsyncThunk(
-  "comments/delete",
+  "posts/comments/delete",
   async (comment: { id: string; postId: string }) => {
     await axios.delete(`/comments/${comment.id}`);
   }

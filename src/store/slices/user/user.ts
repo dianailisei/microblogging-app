@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserByIdThunk, loginUserThunk } from "./thunks";
-import { User } from "../../../types";
+import { type User } from "../../../types";
 
 type UserState = {
   loggedUser: User | null;

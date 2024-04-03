@@ -4,43 +4,45 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import { getUserPostsThunk } from "../../store/slices/post/thunks";
 import PostCard from "../../components/PostCard/PostCard";
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
-import { Post, User } from "../../types";
+import { type Post, User } from "../../types";
 import Card from "../../components/Card/Card";
 import useUserRights from "../../hooks/useUserRights";
 import { getUserByIdThunk } from "../../store/slices/user/thunks";
 import { useNavigate } from "react-router-dom";
 
-function Profile() {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const posts: Post[] = useAppSelector((store) => store.post.posts);
   const postsAuthor: User | null = posts.length > 0 ? posts[0].author : null;
   const currentUser = useAppSelector((store) => store.user.currentUser);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { currentUserId, isOwner } = useUserRights();
 
   useEffect(() => {
+    setIsLoading(true);
     if (!currentUserId) {
       navigate("/login");
       return;
     }
-    setIsLoading(true);
-    dispatch(getUserByIdThunk(currentUserId)).then(actionResult => {
-      if(actionResult.meta.requestStatus === "rejected") {
+
+    dispatch(getUserByIdThunk(currentUserId)).then((actionResult) => {
+      if (actionResult.meta.requestStatus === "rejected") {
         navigate("/404");
       }
 
-      if(actionResult.meta.requestStatus === "fulfilled") {
+      if (actionResult.meta.requestStatus === "fulfilled") {
         dispatch(getUserPostsThunk(currentUserId)).finally(() => {
           setIsLoading(false);
         });
       }
     });
-
   }, [currentUserId]);
 
-  if (isLoading || !posts) return <h2 className={styles.loading}>Loading...</h2>;
+  if (isLoading || !posts)
+    return <h2 className={styles.loading}>Loading...</h2>;
 
   return (
     <div className={styles.container}>
@@ -65,6 +67,6 @@ function Profile() {
       ))}
     </div>
   );
-}
+};
 
 export default Profile;

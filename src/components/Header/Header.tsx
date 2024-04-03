@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import useSession from "../../hooks/useSession";
 
-function Header() {
+const Header = () => {
   const { logout, isLoggedIn } = useSession();
 
   return (
@@ -24,6 +24,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;
