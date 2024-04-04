@@ -1,4 +1,4 @@
-import { type ComponentProps } from "react";
+import { ComponentProps } from "react";
 import { Comment } from "../../types";
 import Card from "../Card/Card";
 import styles from "./CommentCard.module.scss";

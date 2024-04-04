@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef } from "react";
 import styles from "./TextInput.module.scss";
 
 export interface TextInputProps extends ComponentPropsWithRef<"input"> {

@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import Card from "../../components/Card/Card";
@@ -21,7 +21,7 @@ const Register = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="register-page">
       <Card className={styles.registerCard}>
         <h1>Register and Chit-Chat 😊</h1>
         <form onSubmit={submitHandler}>

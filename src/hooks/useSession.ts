@@ -1,7 +1,7 @@
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../store";
 import { createUserThunk, loginUserThunk } from "../store/slices/user/thunks";
-import { type RegisterUserData, UserCredetials } from "../types";
+import { RegisterUserData, UserCredetials } from "../types";
 import { clearUser } from "../store/slices/user/user";
 import { clearPosts } from "../store/slices/post/post";
 

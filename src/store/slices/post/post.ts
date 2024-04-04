@@ -9,7 +9,7 @@ import {
   loadMoreCommentsByPostThunk,
   loadMorePostsThunk,
 } from "./thunks";
-import { type Post, Comment } from "../../../types";
+import { Post, Comment } from "../../../types";
 
 type PostState = {
   posts: Post[];

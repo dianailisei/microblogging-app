@@ -1,5 +1,5 @@
-import { type ComponentProps, useEffect, useState } from "react";
-import { type Post } from "../../types";
+import { ComponentProps, useEffect, useState } from "react";
+import { Post } from "../../types";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import styles from "./PostCard.module.scss";

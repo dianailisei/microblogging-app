@@ -1,5 +1,5 @@
 import React from "react";
-import { type ComponentProps } from "react";
+import { ComponentProps } from "react";
 import styles from "./ContextMenu.module.scss";
 
 type ContextMenuProps = {

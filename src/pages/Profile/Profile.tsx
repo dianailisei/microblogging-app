@@ -7,7 +7,7 @@ import {
 } from "../../store/slices/post/thunks";
 import PostCard from "../../components/PostCard/PostCard";
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
-import { type Post, User } from "../../types";
+import { Post, User } from "../../types";
 import Card from "../../components/Card/Card";
 import useUserRights from "../../hooks/useUserRights";
 import { getUserByIdThunk } from "../../store/slices/user/thunks";
@@ -81,7 +81,7 @@ const Profile = () => {
     return <h2 className={styles.loading}>Loading...</h2>;
 
   return (
-    <div className={styles.container}>
+    <div data-testid="profile-page" className={styles.container}>
       <h1>
         {postsAuthor
           ? `${postsAuthor?.firstName} ${postsAuthor?.lastName}`

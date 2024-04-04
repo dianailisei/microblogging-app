@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../axios";
-import { type Post, Comment } from "../../../types";
+import { Post, Comment } from "../../../types";
 
 export const getUserPostsThunk = createAsyncThunk(
   "users/posts",

@@ -1,4 +1,4 @@
-import { type ComponentProps } from "react";
+import { ComponentProps } from "react";
 import styles from "./Card.module.scss";
 import clsx from "clsx";
 

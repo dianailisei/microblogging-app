@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { type User, UserCredetials, RegisterUserData } from "../../../types";
+import { User, UserCredetials, RegisterUserData } from "../../../types";
 import axios from "../../../axios";
 
 export const loginUserThunk = createAsyncThunk(

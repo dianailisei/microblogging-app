@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef } from "react";
 import styles from "./Button.module.scss";
 import clsx from "clsx";
 import React from "react";

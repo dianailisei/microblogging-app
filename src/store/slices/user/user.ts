@@ -1,6 +1,6 @@
 import { createSlice, isFulfilled } from "@reduxjs/toolkit";
 import { createUserThunk, getUserByIdThunk, loginUserThunk } from "./thunks";
-import { type User } from "../../../types";
+import { User } from "../../../types";
 
 type UserState = {
   loggedUser: User | null;

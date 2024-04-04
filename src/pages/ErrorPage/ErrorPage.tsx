@@ -7,7 +7,7 @@ const ErrorPage = () => {
   const navigate = useNavigate();
   
   return (
-    <Card className={styles.card}>
+    <Card data-testid="error-page" className={styles.card}>
       <h1>Are you lost? 🤔</h1>
       <Button onClick={() => navigate("/profile")}>Bring me back</Button>
     </Card>

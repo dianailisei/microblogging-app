@@ -8,7 +8,7 @@ export type User = {
   username: string;
   firstName: string;
   lastName: string;
-  created: Date;
+  created: string;
   accessToken?: string;
 };
 

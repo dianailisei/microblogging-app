@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import Card from "../../components/Card/Card";
@@ -18,11 +18,12 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div data-testid="login-page" className={styles.container}>
       <Card className={styles.loginCard}>
         <h1>Login and Chit-Chat 😊</h1>
         <form onSubmit={submitHandler}>
           <TextInput
+          data-testid="username-input"
             name="username"
             type="text"
             label="Username"
@@ -31,6 +32,7 @@ const Login = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextInput
+          data-testid="password-input"
             name="password"
             type="password"
             label="Password"
@@ -38,7 +40,7 @@ const Login = () => {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button>Log In</Button>
+          <Button data-testid="login-button">Log In</Button>
         </form>
       </Card>
     </div>
