@@ -16,7 +16,7 @@ After the installation, you can run
 ```bash
 npm run dev
 ```
-and open [http://localhost:5173/](http://localhost:5173/) to see the website.
+and open [http://localhost:5173/](http://localhost:5173/login) to see the website.
 
 
 ## Author
